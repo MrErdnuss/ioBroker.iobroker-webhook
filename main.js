@@ -53,8 +53,8 @@ class IobrokerWebhook extends utils.Adapter {
 				.split('/')
 				.filter((part) => ('' + part).trim() !== '')
 				.filter(Boolean);
-			const folderPath = urlParts.slice(0, -1).join('.'); // "Verzeichnis" bis zum letzten Teil
-			const lastPart = urlParts[urlParts.length - 1]; // Letzter Teil der URL, z.B. "doorbell"
+			const folderPath = urlParts.slice(0, -1).join('.'); // Verzeichnis bis zum letzten Segment
+			const lastPart = urlParts[urlParts.length - 1]; // Letztes Segment, z.B. "doorbell"
 
 			const meta = {
 				ip: req.ip,
@@ -64,23 +64,11 @@ class IobrokerWebhook extends utils.Adapter {
 
 			const data = req.body;
 
-			// Verzeichnis für Meta-Daten anlegen
-			const metaPath = `${folderPath}.${lastPart}.meta`;
-			await this.setObjectNotExistsAsync(metaPath, {
-				type: 'state',
-				common: {
-					name: 'Meta information for ' + lastPart,
-					role: 'meta',
-					type: 'string',
-					read: true,
-					write: false
-				},
-				native: {}
-			});
-
-			// JSON-Daten verarbeiten und in ein Unterverzeichnis "data" speichern
+			// Basis-Pfade für Meta- und Daten-Stores
+			const metaParentPath = `${folderPath}.${lastPart}.meta`;
 			const dataParentPath = `${folderPath}.${lastPart}.data`;
 
+			// Funktion zur rekursiven Verarbeitung und Speicherung
 			const processJson = async (data, parentPath) => {
 				for (const key in data) {
 					if (data.hasOwnProperty(key)) {
@@ -88,16 +76,16 @@ class IobrokerWebhook extends utils.Adapter {
 						const currentPath = `${parentPath}.${key}`;
 
 						if (typeof value === 'object' && value !== null) {
-							// Wenn der Wert ein weiteres Objekt ist, rekursiv verarbeiten
+							// Wenn es ein weiteres Objekt ist, rekursiv verarbeiten
 							await processJson(value, currentPath);
 						} else {
-							// Wenn der Wert ein primitiver Datentyp ist, lege einen State an
+							// Wenn es ein primitiver Wert ist, lege einen State an
 							await this.setObjectNotExistsAsync(currentPath, {
 								type: 'state',
 								common: {
 									name: key,
 									role: 'state',
-									type: determineType(value), // Funktion zum Bestimmen des Typs
+									type: determineType(value), // Typ des Werts ermitteln
 									read: true,
 									write: true
 								},
@@ -111,13 +99,11 @@ class IobrokerWebhook extends utils.Adapter {
 				}
 			};
 
-			// JSON-Daten verarbeiten und unter "data" speichern
-			await processJson(data, dataParentPath);
+			// Metadaten und Daten verarbeiten
+			await processJson(meta, metaParentPath); // Metadaten rekursiv speichern
+			await processJson(data, dataParentPath); // Daten rekursiv speichern
 
-			// Meta-Informationen speichern
-			await this.setStateAsync(metaPath, { val: JSON.stringify(meta), ack: true });
-
-			// Antwort mit JSON und Status
+			// Antwort senden
 			res.setHeader('Content-Type', 'application/json');
 			res.status(200).json({ status: 'success' });
 		});

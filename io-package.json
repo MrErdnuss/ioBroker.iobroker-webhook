@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "iobroker-webhook",
-    "version": "0.1.7",
+    "version": "0.1.8",
     "news": {
+      "0.1.8": {
+        "en": "bugfix",
+        "de": "fehlerbehebung",
+        "ru": "исправления",
+        "pt": "correção de erros",
+        "nl": "bugfix",
+        "fr": "correction du bug",
+        "it": "bugfix",
+        "es": "bugfix",
+        "pl": "bugfix",
+        "uk": "панчохи",
+        "zh-cn": "错误修正"
+      },
       "0.1.7": {
         "en": "bugfix parent path",
         "de": "bugfix elternpfad",
@@ -80,19 +93,6 @@
         "pl": "aktualizacja typu danych meta i bugfix",
         "uk": "оновлення мета і тип даних про помилку",
         "zh-cn": "更新元和错误修正数据类型"
-      },
-      "0.1.1": {
-        "en": "data to objects",
-        "de": "daten zu objekten",
-        "ru": "данные для объектов",
-        "pt": "dados para objetos",
-        "nl": "gegevens naar objecten",
-        "fr": "données aux objets",
-        "it": "dati per oggetti",
-        "es": "datos a objetos",
-        "pl": "dane do obiektów",
-        "uk": "дані для об'єктів",
-        "zh-cn": "数据到对象"
       }
     },
     "titleLang": {
