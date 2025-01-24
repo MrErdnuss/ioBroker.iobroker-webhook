@@ -1,0 +1,83 @@
+{
+	"common": {
+		"name": "iobroker-webhook",
+		"version": "0.0.1",
+		"news": {
+			"0.0.1": {
+				"en": "initial release",
+				"de": "Erstveröffentlichung",
+				"ru": "Начальная версия",
+				"pt": "lançamento inicial",
+				"nl": "Eerste uitgave",
+				"fr": "Première version",
+				"it": "Versione iniziale",
+				"es": "Versión inicial",
+				"pl": "Pierwsze wydanie",
+				"uk": "Початкова версія",
+				"zh-cn": "首次出版"
+			}
+		},
+		"titleLang": {
+			"en": "Webhook",
+			"de": "Webhook",
+			"ru": "Webhook",
+			"pt": "Webhook",
+			"nl": "Webhook",
+			"fr": "Webhook",
+			"it": "Webhook",
+			"es": "gancho web",
+			"pl": "Webhook",
+			"uk": "Webhook",
+			"zh-cn": "网络钩子"
+		},
+		"desc": {
+			"en": "iobroker-webhook",
+			"de": "iobroker-webhook",
+			"ru": "iobroker-webhook",
+			"pt": "iobroker-webhook",
+			"nl": "iobroker-webhook",
+			"fr": "webhook iobroker",
+			"it": "iobroker-webhook",
+			"es": "iobroker-webhook",
+			"pl": "iobroker-webhook",
+			"uk": "iobroker-вебхук",
+			"zh-cn": "iobroker-webhook"
+		},
+		"authors": ["MrErdnuss <thomas.dick@inkblot.de>"],
+		"keywords": ["ioBroker", "template", "Smart Home", "home automation"],
+		"licenseInformation": {
+			"type": "free",
+			"license": "MIT"
+		},
+		"platform": "Javascript/Node.js",
+		"icon": "iobroker-webhook.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/MrErdnuss/ioBroker.iobroker-webhook/main/admin/iobroker-webhook.png",
+		"readme": "https://github.com/MrErdnuss/ioBroker.iobroker-webhook/blob/main/README.md",
+		"loglevel": "info",
+		"tier": 3,
+		"mode": "daemon",
+		"type": "communication",
+		"compact": true,
+		"connectionType": "local",
+		"dataSource": "push",
+		"adminUI": {
+			"config": "materialize"
+		},
+		"dependencies": [
+			{
+				"js-controller": ">=6.0.11"
+			}
+		],
+		"globalDependencies": [
+			{
+				"admin": "7.0.23"
+			}
+		]
+	},
+	"native": {
+		"port": 8090
+	},
+	"objects": [],
+	"instanceObjects": []
+}
