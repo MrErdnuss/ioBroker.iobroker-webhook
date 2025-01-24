@@ -7,9 +7,6 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 const utils = require('@iobroker/adapter-core');
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
 
 class IobrokerWebhook extends utils.Adapter {
 	constructor(options) {
@@ -36,7 +33,7 @@ class IobrokerWebhook extends utils.Adapter {
 	async onReady() {
 		this.log.info('Adapter ist bereit!');
 
-		const port = this.config.port || 8090;
+		const port = this.config.port || 8095;
 		this.log.info(`Starte Webhook-Server auf Port ${port}`);
 
 		const express = require('express');
