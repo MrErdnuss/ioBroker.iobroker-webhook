@@ -78,8 +78,8 @@ class IobrokerWebhook extends utils.Adapter {
 				native: {}
 			});
 
-			// Hier beginnen wir, den JSON-Body zu verarbeiten
-			async function processJson(data, parentPath) {
+			// JSON-Daten verarbeiten (Rekursive Funktion)
+			const processJson = async (data, parentPath) => {
 				for (const key in data) {
 					if (data.hasOwnProperty(key)) {
 						const value = data[key];
@@ -107,10 +107,10 @@ class IobrokerWebhook extends utils.Adapter {
 						}
 					}
 				}
-			}
+			};
 
 			// JSON-Daten verarbeiten
-			await processJson.call(this, data, folderPath);
+			await processJson(data, folderPath);
 
 			// Meta-Informationen speichern
 			await this.setStateAsync(metaPath, { val: JSON.stringify(meta), ack: true });

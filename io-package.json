@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "iobroker-webhook",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "news": {
+      "0.1.6": {
+        "en": "bugfix",
+        "de": "fehlerbehebung",
+        "ru": "исправления",
+        "pt": "correção de erros",
+        "nl": "bugfix",
+        "fr": "correction du bug",
+        "it": "bugfix",
+        "es": "bugfix",
+        "pl": "bugfix",
+        "uk": "панчохи",
+        "zh-cn": "错误修正"
+      },
       "0.1.5": {
         "en": "can handle submitted json objects",
         "de": "kann mit eingereichten json-objekten umgehen",
@@ -80,19 +93,6 @@
         "pl": "dodaj GET",
         "uk": "додати GET",
         "zh-cn": "添加获取"
-      },
-      "0.0.9": {
-        "en": "bugfixes...",
-        "de": "bugfixes...",
-        "ru": "исправления...",
-        "pt": "bugfixes...",
-        "nl": "bugfixes...",
-        "fr": "fixe les bugs...",
-        "it": "bugfix...",
-        "es": "bugfixes...",
-        "pl": "figi...",
-        "uk": "виправлення помилок.",
-        "zh-cn": "错误修正..."
       }
     },
     "titleLang": {
