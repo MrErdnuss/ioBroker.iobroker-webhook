@@ -53,8 +53,8 @@ class IobrokerWebhook extends utils.Adapter {
 				.split('/')
 				.filter((part) => ('' + part).trim() !== '')
 				.filter(Boolean);
-			const folderPath = urlParts.slice(0, -1).join('.'); // Das "Verzeichnis" bis zum letzten Teil der URL
-			const lastPart = urlParts[urlParts.length - 1]; // Der letzte Teil der URL, z.B. "device1"
+			const folderPath = urlParts.slice(0, -1).join('.'); // "Verzeichnis" bis zum letzten Teil
+			const lastPart = urlParts[urlParts.length - 1]; // Letzter Teil der URL, z.B. "doorbell"
 
 			const meta = {
 				ip: req.ip,
@@ -78,7 +78,9 @@ class IobrokerWebhook extends utils.Adapter {
 				native: {}
 			});
 
-			// JSON-Daten verarbeiten (Rekursive Funktion)
+			// JSON-Daten verarbeiten und in ein Unterverzeichnis "data" speichern
+			const dataParentPath = `${folderPath}.${lastPart}.data`;
+
 			const processJson = async (data, parentPath) => {
 				for (const key in data) {
 					if (data.hasOwnProperty(key)) {
@@ -86,7 +88,7 @@ class IobrokerWebhook extends utils.Adapter {
 						const currentPath = `${parentPath}.${key}`;
 
 						if (typeof value === 'object' && value !== null) {
-							// Wenn der Wert ein weiteres Objekt ist, rekursiv anrufen
+							// Wenn der Wert ein weiteres Objekt ist, rekursiv verarbeiten
 							await processJson(value, currentPath);
 						} else {
 							// Wenn der Wert ein primitiver Datentyp ist, lege einen State an
@@ -95,7 +97,7 @@ class IobrokerWebhook extends utils.Adapter {
 								common: {
 									name: key,
 									role: 'state',
-									type: determineType(value), // Funktion, um den Typ des Werts zu bestimmen
+									type: determineType(value), // Funktion zum Bestimmen des Typs
 									read: true,
 									write: true
 								},
@@ -109,8 +111,8 @@ class IobrokerWebhook extends utils.Adapter {
 				}
 			};
 
-			// JSON-Daten verarbeiten
-			await processJson(data, folderPath);
+			// JSON-Daten verarbeiten und unter "data" speichern
+			await processJson(data, dataParentPath);
 
 			// Meta-Informationen speichern
 			await this.setStateAsync(metaPath, { val: JSON.stringify(meta), ack: true });

@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "iobroker-webhook",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "news": {
+      "0.1.7": {
+        "en": "bugfix parent path",
+        "de": "bugfix elternpfad",
+        "ru": "bugfix",
+        "pt": "caminho pai correndo",
+        "nl": "bugfix ouder pad",
+        "fr": "bugfix chemin parent",
+        "it": "percorso dei genitori bugfix",
+        "es": "ruta padre bugfix",
+        "pl": "ścieżka macierzysta bugfix",
+        "uk": "виправлення батьківського шляху",
+        "zh-cn": "错误修正父路径"
+      },
       "0.1.6": {
         "en": "bugfix",
         "de": "fehlerbehebung",
@@ -80,19 +93,6 @@
         "pl": "dane do obiektów",
         "uk": "дані для об'єктів",
         "zh-cn": "数据到对象"
-      },
-      "0.1.0": {
-        "en": "add GET",
-        "de": "hinzufügen von GET",
-        "ru": "добавить",
-        "pt": "adicionar GET",
-        "nl": "gET toevoegen",
-        "fr": "ajouter GET",
-        "it": "aggiungere GET",
-        "es": "añadir",
-        "pl": "dodaj GET",
-        "uk": "додати GET",
-        "zh-cn": "添加获取"
       }
     },
     "titleLang": {
