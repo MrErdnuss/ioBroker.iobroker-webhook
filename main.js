@@ -102,7 +102,8 @@ class IobrokerWebhook extends utils.Adapter {
 			}
 
 			// Antwort senden
-			res.send('OK');
+			res.setHeader('Content-Type', 'application/json');
+			res.status(200).json({ status: 'success' });
 		});
 
 		this.server = app.listen(port, () => {
