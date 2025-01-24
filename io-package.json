@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "iobroker-webhook",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "news": {
+      "0.1.1": {
+        "en": "data to objects",
+        "de": "daten zu objekten",
+        "ru": "данные для объектов",
+        "pt": "dados para objetos",
+        "nl": "gegevens naar objecten",
+        "fr": "données aux objets",
+        "it": "dati per oggetti",
+        "es": "datos a objetos",
+        "pl": "dane do obiektów",
+        "uk": "дані для об'єктів",
+        "zh-cn": "数据到对象"
+      },
       "0.1.0": {
         "en": "add GET",
         "de": "hinzufügen von GET",
@@ -80,19 +93,6 @@
         "pl": "Domyślna zmiana portu",
         "uk": "Зміна портів за замовчуванням",
         "zh-cn": "默认端口已更改"
-      },
-      "0.0.4": {
-        "en": "Logging",
-        "de": "Protokoll",
-        "ru": "Журнал",
-        "pt": "Logging",
-        "nl": "Loggen",
-        "fr": "Exploitation forestière",
-        "it": "Registrazione",
-        "es": "Registro",
-        "pl": "Logowanie",
-        "uk": "Пробити",
-        "zh-cn": "日志"
       }
     },
     "titleLang": {

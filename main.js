@@ -42,33 +42,26 @@ class IobrokerWebhook extends utils.Adapter {
 		app.use(bodyParser.json());
 
 		app.all('*', async (req, res) => {
-			const urlParts = req.path.split('/').filter(Boolean);
-			const folderPath = urlParts.slice(0, -1).join('.');
-			const lastPart = urlParts[urlParts.length - 1];
+			if (req.path === '/favicon.ico') {
+				res.status(204).end(); // 204 = No Content
+				return;
+			}
+			const urlParts = req.path.split('/').filter(Boolean); // Pfad in Teile zerlegen
+			const folderPath = urlParts.join('.'); // Alle Pfad-Teile zu einem Pfad für States zusammenfügen
 
-			// Meta-Informationen
 			const meta = {
 				ip: req.ip,
 				method: req.method,
 				timestamp: new Date().toISOString()
 			};
 
-			// Daten basierend auf der Methode zuweisen
-			let data;
-			if (req.method === 'GET') {
-				data = req.query; // Bei GET: Query-Parameter
-			} else {
-				data = req.body; // Bei POST/PUT/DELETE: Body-Daten
-			}
+			// Meta-Informationen speichern
+			const metaPath = `${folderPath}.meta`;
 
-			const metaPath = `${folderPath}.${lastPart}.meta`;
-			const dataPath = `${folderPath}.${lastPart}.data`;
-
-			// States für Meta- und Daten erstellen, falls nicht vorhanden
 			await this.setObjectNotExistsAsync(metaPath, {
 				type: 'state',
 				common: {
-					name: 'Meta information for ' + lastPart,
+					name: 'Meta information',
 					role: 'meta',
 					type: 'string',
 					read: true,
@@ -77,28 +70,33 @@ class IobrokerWebhook extends utils.Adapter {
 				native: {}
 			});
 
-			await this.setObjectNotExistsAsync(dataPath, {
-				type: 'state',
-				common: {
-					name: 'Data for ' + lastPart,
-					role: 'data',
-					type: 'string',
-					read: true,
-					write: true
-				},
-				native: {}
-			});
-
-			// Meta- und Daten speichern
 			await this.setStateAsync(metaPath, { val: JSON.stringify(meta), ack: true });
-			await this.setStateAsync(dataPath, { val: JSON.stringify(data), ack: true });
 
-			// Antwort senden
-			res.send({
-				message: 'OK',
-				receivedMeta: meta, // Debug: Meta-Daten
-				receivedData: data // Debug: Empfangene Daten
-			});
+			// Daten aus GET-Parametern oder POST-Body extrahieren
+			const data = req.method === 'GET' ? req.query : req.body;
+
+			// Für jeden Key im `data`-Objekt einen eigenen State anlegen
+			if (data && typeof data === 'object') {
+				for (const [key, value] of Object.entries(data)) {
+					const statePath = `${folderPath}.${key}`;
+
+					await this.setObjectNotExistsAsync(statePath, {
+						type: 'state',
+						common: {
+							name: `Data for ${key}`,
+							role: 'data',
+							type: 'string',
+							read: true,
+							write: true
+						},
+						native: {}
+					});
+
+					await this.setStateAsync(statePath, { val: String(value), ack: true });
+				}
+			}
+
+			res.send('OK');
 		});
 
 		this.server = app.listen(port, () => {
