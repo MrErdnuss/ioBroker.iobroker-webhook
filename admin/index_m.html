@@ -1,6 +1,11 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<head>
-		<!-- Load ioBroker scripts and styles-->
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Webhook Adapter Configuration</title>
+
+		<!-- Load ioBroker scripts and styles -->
 		<link rel="stylesheet" type="text/css" href="../../css/adapter.css" />
 		<link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css" />
 
@@ -11,64 +16,72 @@
 		<script type="text/javascript" src="../../lib/js/materialize.js"></script>
 		<script type="text/javascript" src="../../js/adapter-settings.js"></script>
 
-		<!-- Load our own files -->
+		<!-- Load custom files -->
 		<link rel="stylesheet" type="text/css" href="style.css" />
 		<script type="text/javascript" src="words.js"></script>
 
 		<script type="text/javascript">
-			// This will be called by the admin adapter when the settings page loads
+			// Called when the settings page loads
 			function load(settings, onChange) {
-				// example: select elements with id=key and class=value and insert value
 				if (!settings) return;
+
+				// Populate inputs with current settings
 				$('.value').each(function () {
-					var $key = $(this);
-					var id = $key.attr('id');
-					if ($key.attr('type') === 'checkbox') {
-						// do not call onChange direct, because onChange could expect some arguments
-						$key.prop('checked', settings[id]).on('change', () => onChange());
+					const $el = $(this);
+					const id = $el.attr('id');
+					if ($el.attr('type') === 'checkbox') {
+						$el.prop('checked', settings[id]).on('change', () => onChange());
 					} else {
-						// do not call onChange direct, because onChange could expect some arguments
-						$key
+						$el
 							.val(settings[id])
 							.on('change', () => onChange())
 							.on('keyup', () => onChange());
 					}
 				});
+
+				// Trigger initial change
 				onChange(false);
-				// reinitialize all the Materialize labels on the page if you are dynamically adding inputs:
+
+				// Update Materialize labels
 				if (M) M.updateTextFields();
 			}
 
-			// This will be called by the admin adapter when the user presses the save button
+			// Called when the save button is pressed
 			function save(callback) {
-				// example: select elements with class=value and build settings object
-				var obj = {};
+				const obj = {};
+
+				// Collect input values
 				$('.value').each(function () {
-					var $this = $(this);
-					if ($this.attr('type') === 'checkbox') {
-						obj[$this.attr('id')] = $this.prop('checked');
-					} else if ($this.attr('type') === 'number') {
-						obj[$this.attr('id')] = parseFloat($this.val());
+					const $el = $(this);
+					const id = $el.attr('id');
+					if ($el.attr('type') === 'checkbox') {
+						obj[id] = $el.prop('checked');
+					} else if ($el.attr('type') === 'number') {
+						obj[id] = parseFloat($el.val()) || 0; // Default to 0 if empty
 					} else {
-						obj[$this.attr('id')] = $this.val();
+						obj[id] = $el.val();
 					}
 				});
+
+				// Pass settings object to callback
 				callback(obj);
 			}
 		</script>
 	</head>
-
 	<body>
 		<div class="m adapter-container">
+			<!-- Logo -->
 			<div class="row">
 				<div class="col s12 m4 l2">
-					<img src="iobroker-webhook.png" class="logo" />
+					<img src="iobroker-webhook.png" class="logo" alt="Webhook Logo" />
 				</div>
 			</div>
+
+			<!-- Server Port Input -->
 			<div class="row">
 				<div class="col s12 input-field">
-					<input type="number" id="port" data-settings="true" placeholder="8090" />
-					<label>Server-Port:</label>
+					<input type="number" id="port" class="value" min="1" max="65535" placeholder="8095" />
+					<label for="port" class="active">Server-Port:</label>
 				</div>
 			</div>
 		</div>
