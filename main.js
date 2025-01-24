@@ -17,12 +17,31 @@ class IobrokerWebhook extends utils.Adapter {
 			...options,
 			name: 'iobroker-webhook'
 		});
+
+		// Registrierung der Events
+		this.on('ready', this.onReady.bind(this));
+		this.on('stateChange', this.onStateChange.bind(this));
+		this.on('unload', this.onUnload.bind(this));
+
+		// Optional: Weitere Events, die du verwenden möchtest
+		// this.on('objectChange', this.onObjectChange.bind(this));
+		// this.on('message', this.onMessage.bind(this));
+
 		this.server = null;
+
+		// Logging um sicherzustellen, dass der Konstruktor korrekt aufgerufen wird
+		this.log.debug('Adapter-Konstruktor wird aufgerufen!');
 	}
 
 	async onReady() {
+		this.log.info('Adapter ist bereit!');
+
 		const port = this.config.port || 8090;
-		this.log.info(`Webhook Adapter wird auf Port ${port} gestartet...`); // Füge hier ein weiteres Logging hinzu, um den Port zu überwachen
+		this.log.info(`Starte Webhook-Server auf Port ${port}`);
+
+		const express = require('express');
+		const bodyParser = require('body-parser');
+		const cors = require('cors');
 
 		const app = express();
 		app.use(cors()); // CORS aktivieren
@@ -74,16 +93,14 @@ class IobrokerWebhook extends utils.Adapter {
 			res.send('OK');
 		});
 
-		// Logge, dass der Server tatsächlich startet
-		this.log.info(`Starte den Express-Server...`);
 		this.server = app.listen(port, () => {
-			this.log.info(`Webhook Server läuft auf Port ${port}`); // Das hier war vorher nicht da, das muss sicherstellen, dass der Server wirklich startet
+			this.log.info(`Webhook server running on port ${port}`);
 		});
+	}
 
-		// Logge Fehler beim Start des Servers
-		this.server.on('error', (err) => {
-			this.log.error(`Fehler beim Starten des Servers: ${err.message}`);
-		});
+	// Handle 'stateChange' event
+	onStateChange(id, state) {
+		this.log.debug(`State change detected: ${id}`);
 	}
 
 	onUnload(callback) {

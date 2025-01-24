@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "iobroker-webhook",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "news": {
+      "0.0.7": {
+        "en": "bugfixes",
+        "de": "bugfixes",
+        "ru": "исправления",
+        "pt": "correções de bugs",
+        "nl": "bugfixes",
+        "fr": "correction des bugs",
+        "it": "bugfix",
+        "es": "bugfixes",
+        "pl": "poprawki błędów",
+        "uk": "бетмен",
+        "zh-cn": "错误修正"
+      },
       "0.0.6": {
         "en": "debugging",
         "de": "debugging",
