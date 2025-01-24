@@ -54,7 +54,7 @@ class IobrokerWebhook extends utils.Adapter {
 				.filter((part) => ('' + part).trim() !== '')
 				.filter(Boolean);
 			const folderPath = urlParts.slice(0, -1).join('.'); // Verzeichnis bis zum letzten Segment
-			const lastPart = urlParts[urlParts.length - 1]; // Letztes Segment, z.B. "doorbell"
+			const lastPart = urlParts[urlParts.length - 1]; // Letztes Segment
 
 			// Wenn `folderPath` leer ist, verwenden wir nur `lastPart`
 			const basePath = folderPath ? `${folderPath}.${lastPart}` : lastPart;

@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "iobroker-webhook",
-    "version": "0.1.9",
+    "version": "0.1.10",
     "news": {
+      "0.1.10": {
+        "en": "bugfix",
+        "de": "fehlerbehebung",
+        "ru": "исправления",
+        "pt": "correção de erros",
+        "nl": "bugfix",
+        "fr": "correction du bug",
+        "it": "bugfix",
+        "es": "bugfix",
+        "pl": "bugfix",
+        "uk": "панчохи",
+        "zh-cn": "错误修正"
+      },
       "0.1.9": {
         "en": "handle single paths",
         "de": "mit einzelnen pfaden",
@@ -80,19 +93,6 @@
         "pl": "odpowiedź jsona",
         "uk": "json відповідь",
         "zh-cn": "json 反应"
-      },
-      "0.1.3": {
-        "en": "number test",
-        "de": "anzahl",
-        "ru": "число испытаний",
-        "pt": "teste de número",
-        "nl": "nummertest",
-        "fr": "numéro d'essai",
-        "it": "test di numero",
-        "es": "número de prueba",
-        "pl": "badanie liczby",
-        "uk": "кількість тестів",
-        "zh-cn": "数字测试"
       }
     },
     "titleLang": {
