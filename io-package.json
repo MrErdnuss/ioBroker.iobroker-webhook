@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "iobroker-webhook",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "news": {
+      "0.1.3": {
+        "en": "number test",
+        "de": "anzahl",
+        "ru": "число испытаний",
+        "pt": "teste de número",
+        "nl": "nummertest",
+        "fr": "numéro d'essai",
+        "it": "test di numero",
+        "es": "número de prueba",
+        "pl": "badanie liczby",
+        "uk": "кількість тестів",
+        "zh-cn": "数字测试"
+      },
       "0.1.2": {
         "en": "update meta and bugfix data type",
         "de": "aktualisierung von meta- und bugfix-datentyp",
@@ -80,19 +93,6 @@
         "pl": "poprawki błędów",
         "uk": "бетмен",
         "zh-cn": "错误修正"
-      },
-      "0.0.6": {
-        "en": "debugging",
-        "de": "debugging",
-        "ru": "отладки",
-        "pt": "depuração",
-        "nl": "debuggen",
-        "fr": "débogage",
-        "it": "debug",
-        "es": "debugging",
-        "pl": "debugowanie",
-        "uk": "декупація",
-        "zh-cn": "调试"
       }
     },
     "titleLang": {

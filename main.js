@@ -11,6 +11,7 @@ const utils = require('@iobroker/adapter-core');
 function determineType(value) {
 	if (Array.isArray(value)) return 'array'; // Arrays speziell behandeln
 	if (value === null) return 'null'; // null speziell behandeln
+	if (typeof value === 'string' && !isNaN(value.trim())) return 'number'; // String, der eine Zahl darstellt
 	return typeof value; // Standard-Typen (string, number, boolean, etc.)
 }
 
