@@ -56,6 +56,13 @@ class IobrokerWebhook extends utils.Adapter {
 			const folderPath = urlParts.slice(0, -1).join('.'); // Verzeichnis bis zum letzten Segment
 			const lastPart = urlParts[urlParts.length - 1]; // Letztes Segment, z.B. "doorbell"
 
+			// Wenn `folderPath` leer ist, verwenden wir nur `lastPart`
+			const basePath = folderPath ? `${folderPath}.${lastPart}` : lastPart;
+
+			// Pfade für Meta- und Datenzustände
+			const metaParentPath = `${basePath}.meta`;
+			const dataParentPath = `${basePath}.data`;
+
 			const meta = {
 				ip: req.ip,
 				method: req.method,
@@ -63,10 +70,6 @@ class IobrokerWebhook extends utils.Adapter {
 			};
 
 			const data = req.body;
-
-			// Basis-Pfade für Meta- und Daten-Stores
-			const metaParentPath = `${folderPath}.${lastPart}.meta`;
-			const dataParentPath = `${folderPath}.${lastPart}.data`;
 
 			// Funktion zur rekursiven Verarbeitung und Speicherung
 			const processJson = async (data, parentPath) => {

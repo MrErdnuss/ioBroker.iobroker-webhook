@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "iobroker-webhook",
-    "version": "0.1.8",
+    "version": "0.1.9",
     "news": {
+      "0.1.9": {
+        "en": "handle single paths",
+        "de": "mit einzelnen pfaden",
+        "ru": "ручка одиночных путей",
+        "pt": "lidar com caminhos únicos",
+        "nl": "enkele paden hanteren",
+        "fr": "gérer les chemins simples",
+        "it": "gestire percorsi singoli",
+        "es": "manejar caminos individuales",
+        "pl": "obsługa pojedynczych ścieżek",
+        "uk": "ручка одноразових доріжок",
+        "zh-cn": "处理单一路径"
+      },
       "0.1.8": {
         "en": "bugfix",
         "de": "fehlerbehebung",
@@ -80,19 +93,6 @@
         "pl": "badanie liczby",
         "uk": "кількість тестів",
         "zh-cn": "数字测试"
-      },
-      "0.1.2": {
-        "en": "update meta and bugfix data type",
-        "de": "aktualisierung von meta- und bugfix-datentyp",
-        "ru": "обновление типа данных мета и исправления",
-        "pt": "atualizar o tipo de dados meta e bugfix",
-        "nl": "update meta en bugfix data type",
-        "fr": "mettre à jour le type de données meta et bugfix",
-        "it": "aggiornamento meta e bugfix tipo di dati",
-        "es": "actualizar el tipo de datos meta y bugfix",
-        "pl": "aktualizacja typu danych meta i bugfix",
-        "uk": "оновлення мета і тип даних про помилку",
-        "zh-cn": "更新元和错误修正数据类型"
       }
     },
     "titleLang": {
