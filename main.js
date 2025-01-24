@@ -25,9 +25,6 @@ class IobrokerWebhook extends utils.Adapter {
 		// this.on('message', this.onMessage.bind(this));
 
 		this.server = null;
-
-		// Logging um sicherzustellen, dass der Konstruktor korrekt aufgerufen wird
-		this.log.debug('Adapter-Konstruktor wird aufgerufen!');
 	}
 
 	async onReady() {
