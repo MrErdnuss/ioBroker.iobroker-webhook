@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "iobroker-webhook",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "news": {
+      "0.1.2": {
+        "en": "update meta and bugfix data type",
+        "de": "aktualisierung von meta- und bugfix-datentyp",
+        "ru": "обновление типа данных мета и исправления",
+        "pt": "atualizar o tipo de dados meta e bugfix",
+        "nl": "update meta en bugfix data type",
+        "fr": "mettre à jour le type de données meta et bugfix",
+        "it": "aggiornamento meta e bugfix tipo di dati",
+        "es": "actualizar el tipo de datos meta y bugfix",
+        "pl": "aktualizacja typu danych meta i bugfix",
+        "uk": "оновлення мета і тип даних про помилку",
+        "zh-cn": "更新元和错误修正数据类型"
+      },
       "0.1.1": {
         "en": "data to objects",
         "de": "daten zu objekten",
@@ -80,19 +93,6 @@
         "pl": "debugowanie",
         "uk": "декупація",
         "zh-cn": "调试"
-      },
-      "0.0.5": {
-        "en": "Default Port changed",
-        "de": "Default Port geändert",
-        "ru": "Замена порта",
-        "pt": "Porto padrão mudou",
-        "nl": "Standaard poort gewijzigd",
-        "fr": "Changement de port par défaut",
-        "it": "Porta predefinita modificata",
-        "es": "Port predeterminado cambiado",
-        "pl": "Domyślna zmiana portu",
-        "uk": "Зміна портів за замовчуванням",
-        "zh-cn": "默认端口已更改"
       }
     },
     "titleLang": {

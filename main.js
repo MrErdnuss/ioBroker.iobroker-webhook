@@ -8,6 +8,12 @@
 // you need to create an adapter
 const utils = require('@iobroker/adapter-core');
 
+function determineType(value) {
+	if (Array.isArray(value)) return 'array'; // Arrays speziell behandeln
+	if (value === null) return 'null'; // null speziell behandeln
+	return typeof value; // Standard-Typen (string, number, boolean, etc.)
+}
+
 class IobrokerWebhook extends utils.Adapter {
 	constructor(options) {
 		super({
@@ -42,60 +48,59 @@ class IobrokerWebhook extends utils.Adapter {
 		app.use(bodyParser.json());
 
 		app.all('*', async (req, res) => {
-			if (req.path === '/favicon.ico') {
-				res.status(204).end(); // 204 = No Content
-				return;
-			}
-			const urlParts = req.path.split('/').filter(Boolean); // Pfad in Teile zerlegen
-			const folderPath = urlParts.join('.'); // Alle Pfad-Teile zu einem Pfad für States zusammenfügen
+			const urlParts = req.path
+				.split('/')
+				.filter((part) => part && part.trim() !== '') // Leere Teile entfernen
+				.filter((part) => part !== 'favicon'); // "favicon" ignorieren
 
+			const folderPath = urlParts.slice(0, -1).join('.');
+			const lastPart = urlParts[urlParts.length - 1];
+
+			// Meta-Informationen
 			const meta = {
 				ip: req.ip,
 				method: req.method,
 				timestamp: new Date().toISOString()
 			};
 
-			// Meta-Informationen speichern
-			const metaPath = `${folderPath}.meta`;
-
-			await this.setObjectNotExistsAsync(metaPath, {
-				type: 'state',
-				common: {
-					name: 'Meta information',
-					role: 'meta',
-					type: 'string',
-					read: true,
-					write: false
-				},
-				native: {}
-			});
-
-			await this.setStateAsync(metaPath, { val: JSON.stringify(meta), ack: true });
-
-			// Daten aus GET-Parametern oder POST-Body extrahieren
+			// Data-Inhalte (GET-Parameter oder POST-Body)
 			const data = req.method === 'GET' ? req.query : req.body;
 
-			// Für jeden Key im `data`-Objekt einen eigenen State anlegen
-			if (data && typeof data === 'object') {
-				for (const [key, value] of Object.entries(data)) {
-					const statePath = `${folderPath}.${key}`;
-
-					await this.setObjectNotExistsAsync(statePath, {
-						type: 'state',
-						common: {
-							name: `Data for ${key}`,
-							role: 'data',
-							type: 'string',
-							read: true,
-							write: true
-						},
-						native: {}
-					});
-
-					await this.setStateAsync(statePath, { val: String(value), ack: true });
-				}
+			// Meta-States als einzelne Einträge anlegen
+			for (const [key, value] of Object.entries(meta)) {
+				const metaKeyPath = `${folderPath}.${lastPart}.meta.${key}`;
+				await this.setObjectNotExistsAsync(metaKeyPath, {
+					type: 'state',
+					common: {
+						name: `Meta: ${key}`,
+						role: 'meta',
+						type: determineType(value), // Dynamisch ermittelter Typ
+						read: true,
+						write: false
+					},
+					native: {}
+				});
+				await this.setStateAsync(metaKeyPath, { val: value, ack: true });
 			}
 
+			// Data-States als einzelne Einträge anlegen
+			for (const [key, value] of Object.entries(data)) {
+				const dataKeyPath = `${folderPath}.${lastPart}.data.${key}`;
+				await this.setObjectNotExistsAsync(dataKeyPath, {
+					type: 'state',
+					common: {
+						name: `Data: ${key}`,
+						role: 'data',
+						type: determineType(value), // Dynamisch ermittelter Typ
+						read: true,
+						write: true
+					},
+					native: {}
+				});
+				await this.setStateAsync(dataKeyPath, { val: value, ack: true });
+			}
+
+			// Antwort senden
 			res.send('OK');
 		});
 
