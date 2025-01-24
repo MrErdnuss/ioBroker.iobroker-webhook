@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "iobroker-webhook",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "news": {
+      "0.0.6": {
+        "en": "debugging",
+        "de": "debugging",
+        "ru": "отладки",
+        "pt": "depuração",
+        "nl": "debuggen",
+        "fr": "débogage",
+        "it": "debug",
+        "es": "debugging",
+        "pl": "debugowanie",
+        "uk": "декупація",
+        "zh-cn": "调试"
+      },
       "0.0.5": {
         "en": "Default Port changed",
         "de": "Default Port geändert",

@@ -21,9 +21,8 @@ class IobrokerWebhook extends utils.Adapter {
 	}
 
 	async onReady() {
-		// Setze den Standardport auf 8090, falls kein Port in der Konfiguration angegeben ist
 		const port = this.config.port || 8090;
-		this.log.info(`Starting Webhook server on port ${port}`);
+		this.log.info(`Webhook Adapter wird auf Port ${port} gestartet...`); // Füge hier ein weiteres Logging hinzu, um den Port zu überwachen
 
 		const app = express();
 		app.use(cors()); // CORS aktivieren
@@ -42,66 +41,48 @@ class IobrokerWebhook extends utils.Adapter {
 
 			const data = req.body;
 
-			// Logge die eingehende Anfrage
-			this.log.debug(`Received request: ${req.method} ${req.originalUrl}`);
-			this.log.debug(`Request Body: ${JSON.stringify(data)}`);
-
 			const metaPath = `${folderPath}.${lastPart}.meta`;
 			const dataPath = `${folderPath}.${lastPart}.data`;
 
-			// Erstelle das Meta-Objekt, wenn es noch nicht existiert
-			try {
-				await this.setObjectNotExistsAsync(metaPath, {
-					type: 'state',
-					common: {
-						name: 'Meta information for ' + lastPart,
-						role: 'meta',
-						type: 'string',
-						read: true,
-						write: false
-					},
-					native: {}
-				});
-				this.log.info(`Created meta object at ${metaPath}`);
-			} catch (error) {
-				this.log.error(`Error creating meta object at ${metaPath}: ${error.message}`);
-			}
+			await this.setObjectNotExistsAsync(metaPath, {
+				type: 'state',
+				common: {
+					name: 'Meta information for ' + lastPart,
+					role: 'meta',
+					type: 'string',
+					read: true,
+					write: false
+				},
+				native: {}
+			});
 
-			// Erstelle das Daten-Objekt, wenn es noch nicht existiert
-			try {
-				await this.setObjectNotExistsAsync(dataPath, {
-					type: 'state',
-					common: {
-						name: 'Data for ' + lastPart,
-						role: 'data',
-						type: 'string',
-						read: true,
-						write: true
-					},
-					native: {}
-				});
-				this.log.info(`Created data object at ${dataPath}`);
-			} catch (error) {
-				this.log.error(`Error creating data object at ${dataPath}: ${error.message}`);
-			}
+			await this.setObjectNotExistsAsync(dataPath, {
+				type: 'state',
+				common: {
+					name: 'Data for ' + lastPart,
+					role: 'data',
+					type: 'string',
+					read: true,
+					write: true
+				},
+				native: {}
+			});
 
-			// Speichere die Meta-Informationen und die Daten
-			try {
-				await this.setStateAsync(metaPath, { val: JSON.stringify(meta), ack: true });
-				this.log.debug(`Meta information saved at ${metaPath}: ${JSON.stringify(meta)}`);
+			await this.setStateAsync(metaPath, { val: JSON.stringify(meta), ack: true });
+			await this.setStateAsync(dataPath, { val: JSON.stringify(data), ack: true });
 
-				await this.setStateAsync(dataPath, { val: JSON.stringify(data), ack: true });
-				this.log.debug(`Data saved at ${dataPath}: ${JSON.stringify(data)}`);
-			} catch (error) {
-				this.log.error(`Error saving state at ${metaPath} or ${dataPath}: ${error.message}`);
-			}
-
-			// Antwort zurück an den Client
 			res.send('OK');
 		});
 
+		// Logge, dass der Server tatsächlich startet
+		this.log.info(`Starte den Express-Server...`);
 		this.server = app.listen(port, () => {
-			this.log.info(`Webhook server running on port ${port}`);
+			this.log.info(`Webhook Server läuft auf Port ${port}`); // Das hier war vorher nicht da, das muss sicherstellen, dass der Server wirklich startet
+		});
+
+		// Logge Fehler beim Start des Servers
+		this.server.on('error', (err) => {
+			this.log.error(`Fehler beim Starten des Servers: ${err.message}`);
 		});
 	}
 
