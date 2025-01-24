@@ -1,6 +1,6 @@
 {
   "name": "iobroker.iobroker-webhook",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "iobroker-webhook",
   "author": {
     "name": "MrErdnuss",
@@ -69,7 +69,7 @@
     "check": "tsc --noEmit -p tsconfig.check.json",
     "lint": "eslint .",
     "translate": "translate-adapter",
-    "release": "release-script"
+    "release": "release-script --all"
   },
   "bugs": {
     "url": "https://github.com/MrErdnuss/ioBroker.iobroker-webhook/issues"
