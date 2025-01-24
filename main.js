@@ -51,57 +51,71 @@ class IobrokerWebhook extends utils.Adapter {
 		app.all('*', async (req, res) => {
 			const urlParts = req.path
 				.split('/')
-				.filter((part) => part && part.trim() !== '') // Leere Teile entfernen
-				.filter((part) => part !== 'favicon'); // "favicon" ignorieren
+				.filter((part) => ('' + part).trim() !== '')
+				.filter(Boolean);
+			const folderPath = urlParts.slice(0, -1).join('.'); // Das "Verzeichnis" bis zum letzten Teil der URL
+			const lastPart = urlParts[urlParts.length - 1]; // Der letzte Teil der URL, z.B. "device1"
 
-			const folderPath = urlParts.slice(0, -1).join('.');
-			const lastPart = urlParts[urlParts.length - 1];
-
-			// Meta-Informationen
 			const meta = {
 				ip: req.ip,
 				method: req.method,
 				timestamp: new Date().toISOString()
 			};
 
-			// Data-Inhalte (GET-Parameter oder POST-Body)
-			const data = req.method === 'GET' ? req.query : req.body;
+			const data = req.body;
 
-			// Meta-States als einzelne Einträge anlegen
-			for (const [key, value] of Object.entries(meta)) {
-				const metaKeyPath = `${folderPath}.${lastPart}.meta.${key}`;
-				await this.setObjectNotExistsAsync(metaKeyPath, {
-					type: 'state',
-					common: {
-						name: `Meta: ${key}`,
-						role: 'meta',
-						type: determineType(value), // Dynamisch ermittelter Typ
-						read: true,
-						write: false
-					},
-					native: {}
-				});
-				await this.setStateAsync(metaKeyPath, { val: value, ack: true });
+			// Verzeichnis für Meta-Daten anlegen
+			const metaPath = `${folderPath}.${lastPart}.meta`;
+			await this.setObjectNotExistsAsync(metaPath, {
+				type: 'state',
+				common: {
+					name: 'Meta information for ' + lastPart,
+					role: 'meta',
+					type: 'string',
+					read: true,
+					write: false
+				},
+				native: {}
+			});
+
+			// Hier beginnen wir, den JSON-Body zu verarbeiten
+			async function processJson(data, parentPath) {
+				for (const key in data) {
+					if (data.hasOwnProperty(key)) {
+						const value = data[key];
+						const currentPath = `${parentPath}.${key}`;
+
+						if (typeof value === 'object' && value !== null) {
+							// Wenn der Wert ein weiteres Objekt ist, rekursiv anrufen
+							await processJson(value, currentPath);
+						} else {
+							// Wenn der Wert ein primitiver Datentyp ist, lege einen State an
+							await this.setObjectNotExistsAsync(currentPath, {
+								type: 'state',
+								common: {
+									name: key,
+									role: 'state',
+									type: determineType(value), // Funktion, um den Typ des Werts zu bestimmen
+									read: true,
+									write: true
+								},
+								native: {}
+							});
+
+							// Wert des States setzen
+							await this.setStateAsync(currentPath, { val: value, ack: true });
+						}
+					}
+				}
 			}
 
-			// Data-States als einzelne Einträge anlegen
-			for (const [key, value] of Object.entries(data)) {
-				const dataKeyPath = `${folderPath}.${lastPart}.data.${key}`;
-				await this.setObjectNotExistsAsync(dataKeyPath, {
-					type: 'state',
-					common: {
-						name: `Data: ${key}`,
-						role: 'data',
-						type: determineType(value), // Dynamisch ermittelter Typ
-						read: true,
-						write: true
-					},
-					native: {}
-				});
-				await this.setStateAsync(dataKeyPath, { val: value, ack: true });
-			}
+			// JSON-Daten verarbeiten
+			await processJson.call(this, data, folderPath);
 
-			// Antwort senden
+			// Meta-Informationen speichern
+			await this.setStateAsync(metaPath, { val: JSON.stringify(meta), ack: true });
+
+			// Antwort mit JSON und Status
 			res.setHeader('Content-Type', 'application/json');
 			res.status(200).json({ status: 'success' });
 		});

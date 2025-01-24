@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "iobroker-webhook",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "news": {
+      "0.1.5": {
+        "en": "can handle submitted json objects",
+        "de": "kann mit eingereichten json-objekten umgehen",
+        "ru": "может обрабатывать поданные json объекты",
+        "pt": "pode lidar com objetos json submetidos",
+        "nl": "kan ingezonden json objecten verwerken",
+        "fr": "peut gérer les objets json soumis",
+        "it": "può gestire oggetti json inviati",
+        "es": "puede manejar objetos json presentados",
+        "pl": "może obsługiwać złożone obiekty json",
+        "uk": "може обробляти подані об'єкти json",
+        "zh-cn": "能够处理已提交的 json 对象"
+      },
       "0.1.4": {
         "en": "json response",
         "de": "json response",
@@ -79,19 +92,6 @@
         "es": "bugfixes...",
         "pl": "figi...",
         "uk": "виправлення помилок.",
-        "zh-cn": "错误修正..."
-      },
-      "0.0.8": {
-        "en": "bugfixes......",
-        "de": "bugfixes...",
-        "ru": "исправления...",
-        "pt": "bugfixes...",
-        "nl": "bugfixes.....",
-        "fr": "fixes...",
-        "it": "bugfixs...",
-        "es": "bugfixes...",
-        "pl": "błędy......",
-        "uk": "...",
         "zh-cn": "错误修正..."
       }
     },
