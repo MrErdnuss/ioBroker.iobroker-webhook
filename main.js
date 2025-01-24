@@ -46,17 +46,25 @@ class IobrokerWebhook extends utils.Adapter {
 			const folderPath = urlParts.slice(0, -1).join('.');
 			const lastPart = urlParts[urlParts.length - 1];
 
+			// Meta-Informationen
 			const meta = {
 				ip: req.ip,
 				method: req.method,
 				timestamp: new Date().toISOString()
 			};
 
-			const data = req.body;
+			// Daten basierend auf der Methode zuweisen
+			let data;
+			if (req.method === 'GET') {
+				data = req.query; // Bei GET: Query-Parameter
+			} else {
+				data = req.body; // Bei POST/PUT/DELETE: Body-Daten
+			}
 
 			const metaPath = `${folderPath}.${lastPart}.meta`;
 			const dataPath = `${folderPath}.${lastPart}.data`;
 
+			// States für Meta- und Daten erstellen, falls nicht vorhanden
 			await this.setObjectNotExistsAsync(metaPath, {
 				type: 'state',
 				common: {
@@ -81,10 +89,16 @@ class IobrokerWebhook extends utils.Adapter {
 				native: {}
 			});
 
+			// Meta- und Daten speichern
 			await this.setStateAsync(metaPath, { val: JSON.stringify(meta), ack: true });
 			await this.setStateAsync(dataPath, { val: JSON.stringify(data), ack: true });
 
-			res.send('OK');
+			// Antwort senden
+			res.send({
+				message: 'OK',
+				receivedMeta: meta, // Debug: Meta-Daten
+				receivedData: data // Debug: Empfangene Daten
+			});
 		});
 
 		this.server = app.listen(port, () => {

@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "iobroker-webhook",
-    "version": "0.0.9",
+    "version": "0.1.0",
     "news": {
+      "0.1.0": {
+        "en": "add GET",
+        "de": "hinzufügen von GET",
+        "ru": "добавить",
+        "pt": "adicionar GET",
+        "nl": "gET toevoegen",
+        "fr": "ajouter GET",
+        "it": "aggiungere GET",
+        "es": "añadir",
+        "pl": "dodaj GET",
+        "uk": "додати GET",
+        "zh-cn": "添加获取"
+      },
       "0.0.9": {
         "en": "bugfixes...",
         "de": "bugfixes...",
@@ -80,19 +93,6 @@
         "pl": "Logowanie",
         "uk": "Пробити",
         "zh-cn": "日志"
-      },
-      "0.0.3": {
-        "en": "Beschreibung der neuen Features oder Bugfixes, die in der nächsten Version kommen.",
-        "de": "Beschreibung der neuen Features oder Bugfixes, die in der nächsten Version kommen.",
-        "ru": "Beschreibung der neuen Features oder Bugfixes, die in der nächsten Version kommen.",
-        "pt": "Beschreibung der neuen Funcionalidades oder Bugfixes, die in der nächsten Versão kommen.",
-        "nl": "Beschreibung der neuen Features oder Bugfixes, die in der nächsten Versie kommen.",
-        "fr": "Beschreibung der neuen Caractéristiques oder Bugfixes, die in der nächsten Version kommen.",
-        "it": "Beschreibung der neuen Caratteristiche oder Bugfixes, die in der nächsten Versione kommen.",
-        "es": "Beschreibung der neuen Características oder Bugfixes, muere en der nächsten Versión kommen.",
-        "pl": "Beschreibung der neuen Functions oder Bugfixes, die in der nächsten Version kommen.",
-        "uk": "Beschreibung der neuen Особливості der Bugfixes, штампування в der nächsten Version kommen.",
-        "zh-cn": "Beschreibung der neuen features oder bugfixes, die in der nächsten version kommen. 中国植物物种信息数据库."
       }
     },
     "titleLang": {
