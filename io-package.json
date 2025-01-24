@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "iobroker-webhook",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "news": {
+      "0.0.5": {
+        "en": "Default Port changed",
+        "de": "Default Port geändert",
+        "ru": "Замена порта",
+        "pt": "Porto padrão mudou",
+        "nl": "Standaard poort gewijzigd",
+        "fr": "Changement de port par défaut",
+        "it": "Porta predefinita modificata",
+        "es": "Port predeterminado cambiado",
+        "pl": "Domyślna zmiana portu",
+        "uk": "Зміна портів за замовчуванням",
+        "zh-cn": "默认端口已更改"
+      },
       "0.0.4": {
         "en": "Logging",
         "de": "Protokoll",

@@ -21,7 +21,8 @@ class IobrokerWebhook extends utils.Adapter {
 	}
 
 	async onReady() {
-		const port = this.config.port || 8080;
+		// Setze den Standardport auf 8090, falls kein Port in der Konfiguration angegeben ist
+		const port = this.config.port || 8090;
 		this.log.info(`Starting Webhook server on port ${port}`);
 
 		const app = express();
