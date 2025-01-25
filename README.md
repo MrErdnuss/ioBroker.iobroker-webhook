@@ -52,8 +52,8 @@ Angenommen, eine HTTP-POST-Anfrage wird an den Adapter gesendet mit folgendem JS
 
 Der Adapter speichert die Daten in den folgenden ioBroker-Objekten:
 
-- `webhook.wohnzimmer.fenster.temperature`
-- `webhook.wohnzimmer.fenster.humidity`
+- `webhook.wohnzimmer.fenster.data.temperature`
+- `webhook.wohnzimmer.fenster.data.humidity`
 
 Zusätzlich werden Meta-Daten gespeichert:
 
@@ -74,6 +74,10 @@ Der Adapter registriert die folgenden Ereignisse:
 Der Adapter behandelt Fehler beim Starten und Stoppen des Servers und protokolliert entsprechende Fehlermeldungen.
 
 ## Changelog
+### 0.2.3 (2025-01-25)
+
+- readme updated
+
 ### 0.2.2 (2025-01-25)
 
 - readme updated
