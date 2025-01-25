@@ -74,6 +74,10 @@ Der Adapter registriert die folgenden Ereignisse:
 Der Adapter behandelt Fehler beim Starten und Stoppen des Servers und protokolliert entsprechende Fehlermeldungen.
 
 ## Changelog
+### 0.2.4 (2025-01-25)
+
+- fixing get parameters
+
 ### 0.2.3 (2025-01-25)
 
 - readme updated

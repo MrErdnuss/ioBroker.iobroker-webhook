@@ -72,7 +72,8 @@ class IobrokerWebhook extends utils.Adapter {
 				timestamp: new Date().toISOString() // Timestamp of the request
 			};
 
-			const data = req.body; // Data from the request body
+			// Data from the request body for POST or query parameters for GET
+			const data = req.method === 'POST' ? req.body : req.query;
 
 			// Function to recursively process and store data
 			const processJson = async (data, parentPath) => {
