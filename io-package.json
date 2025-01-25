@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "iobroker-webhook",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "news": {
+      "0.2.2": {
+        "en": "readme updated",
+        "de": "pressemitteilung",
+        "ru": "обновление",
+        "pt": "readme atualizado",
+        "nl": "readme bijgewerkt",
+        "fr": "readme mis à jour",
+        "it": "aggiornamento",
+        "es": "readme updated",
+        "pl": "readme updated",
+        "uk": "читати далі",
+        "zh-cn": "读取更新"
+      },
       "0.2.1": {
         "en": "readme updated",
         "de": "pressemitteilung",
@@ -80,19 +93,6 @@
         "pl": "ścieżka macierzysta bugfix",
         "uk": "виправлення батьківського шляху",
         "zh-cn": "错误修正父路径"
-      },
-      "0.1.6": {
-        "en": "bugfix",
-        "de": "fehlerbehebung",
-        "ru": "исправления",
-        "pt": "correção de erros",
-        "nl": "bugfix",
-        "fr": "correction du bug",
-        "it": "bugfix",
-        "es": "bugfix",
-        "pl": "bugfix",
-        "uk": "панчохи",
-        "zh-cn": "错误修正"
       }
     },
     "titleLang": {

@@ -35,6 +35,10 @@ Die empfangenen Daten werden rekursiv verarbeitet und in ioBroker-Objekte umgewa
 - **Meta-Daten**: Informationen über die Anfrage (IP-Adresse, HTTP-Methode, Zeitstempel).
 - **Daten**: Die eigentlichen Daten aus dem Anfrage-Body.
 
+### Pfadverarbeitung
+
+Der Adapter verarbeitet auch Pfade in den URLs der HTTP-Anfragen und speichert die Daten entsprechend der Pfadstruktur in ioBroker-Objekten. Zum Beispiel wird eine Anfrage an `/wohnzimmer/fenster` in die entsprechenden Pfade in ioBroker umgewandelt.
+
 ### Beispiel
 
 Angenommen, eine HTTP-POST-Anfrage wird an den Adapter gesendet mit folgendem JSON-Body:
@@ -48,14 +52,14 @@ Angenommen, eine HTTP-POST-Anfrage wird an den Adapter gesendet mit folgendem JS
 
 Der Adapter speichert die Daten in den folgenden ioBroker-Objekten:
 
-- `webhook.temperature`
-- `webhook.humidity`
+- `webhook.wohnzimmer.fenster.temperature`
+- `webhook.wohnzimmer.fenster.humidity`
 
 Zusätzlich werden Meta-Daten gespeichert:
 
-- `webhook.meta.ip`
-- `webhook.meta.method`
-- `webhook.meta.timestamp`
+- `webhook.wohnzimmer.fenster.meta.ip`
+- `webhook.wohnzimmer.fenster.meta.method`
+- `webhook.wohnzimmer.fenster.meta.timestamp`
 
 ## Ereignisse
 
@@ -70,6 +74,10 @@ Der Adapter registriert die folgenden Ereignisse:
 Der Adapter behandelt Fehler beim Starten und Stoppen des Servers und protokolliert entsprechende Fehlermeldungen.
 
 ## Changelog
+### 0.2.2 (2025-01-25)
+
+- readme updated
+
 ### 0.2.1 (2025-01-25)
 
 - readme updated
