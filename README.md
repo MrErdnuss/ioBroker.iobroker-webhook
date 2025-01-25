@@ -113,6 +113,10 @@ The ioBroker.admin interface will then be available at http://localhost:8081/
 Please refer to the [`dev-server` documentation](https://github.com/ioBroker/dev-server#command-line) for more details.
 
 ## Changelog
+### 0.2.0 (2025-01-25)
+
+- refactoring
+
 ### 0.1.10 (2025-01-24)
 
 - bugfix

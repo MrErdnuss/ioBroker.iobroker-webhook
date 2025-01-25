@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "iobroker-webhook",
-    "version": "0.1.10",
+    "version": "0.2.0",
     "news": {
+      "0.2.0": {
+        "en": "refactoring",
+        "de": "refaktor",
+        "ru": "рефакторинг",
+        "pt": "refactoring",
+        "nl": "refactoring",
+        "fr": "refactoration",
+        "it": "refactoring",
+        "es": "refactoring",
+        "pl": "refaktoring",
+        "uk": "рефакторинг",
+        "zh-cn": "正在重构"
+      },
       "0.1.10": {
         "en": "bugfix",
         "de": "fehlerbehebung",
@@ -80,19 +93,6 @@
         "pl": "może obsługiwać złożone obiekty json",
         "uk": "може обробляти подані об'єкти json",
         "zh-cn": "能够处理已提交的 json 对象"
-      },
-      "0.1.4": {
-        "en": "json response",
-        "de": "json response",
-        "ru": "ответ",
-        "pt": "resposta json",
-        "nl": "json-respons",
-        "fr": "json réponse",
-        "it": "risposta json",
-        "es": "json response",
-        "pl": "odpowiedź jsona",
-        "uk": "json відповідь",
-        "zh-cn": "json 反应"
       }
     },
     "titleLang": {
